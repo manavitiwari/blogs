@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chronicle & Mind — Articles, Tips & Personal Diaries</title>
+  <meta name="description" content="An elegant publishing platform for insightful articles, quick developer & design tips, personal diary reflections, and group publications across diverse topics.">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" id="brandLogoBtn">
+        <div class="brand-icon">
+          <i class="fa-solid fa-feather-pointed"></i>
+        </div>
+        <span>Chronicle<span class="brand-accent">&</span>Mind</span>
+      </a>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search articles, diaries, authors, or tags..." autocomplete="off">
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button class="btn btn-primary" id="openWriterBtn">
+          <i class="fa-solid fa-pen-nib"></i>
+          <span>Write Article</span>
+        </button>
+
+        <button class="btn btn-secondary" id="analyticsBtn" title="Reading Stats & Analytics">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Stats</span>
+        </button>
+
+        <button class="btn btn-icon" id="themeToggleBtn" title="Toggle Theme (Dark / Light / Cyberpunk)">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        <button class="btn btn-icon" id="newsletterBtn" title="Subscribe to Newsletter">
+          <i class="fa-regular fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- Spotlight Featured Article -->
+    <section class="hero-spotlight" id="heroSpotlight">
+      <div class="hero-image-wrap">
+        <img src="assets/tech_ai.jpg" alt="Featured Article Cover" class="hero-image" id="heroImage">
+      </div>
+      <div class="hero-content">
+        <div class="badge-spotlight">
+          <i class="fa-solid fa-fire"></i>
+          <span>Featured Spotlight</span>
+        </div>
+        <h1 class="hero-title" id="heroTitle">Building Autonomous AI Agents with Modern Web APIs</h1>
+        <p class="hero-excerpt" id="heroExcerpt">
+          Discover how modern browser capabilities, high-performance web streams, and client-side intelligence are enabling a new paradigm of multi-agent web software.
+        </p>
+        <div class="hero-meta">
+          <div class="author-chip">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Author" class="author-avatar" id="heroAuthorAvatar">
+            <div>
+              <div class="author-name" id="heroAuthorName">Tech Explorers Collective</div>
+              <div class="author-role" id="heroAuthorRole">Group Publication • 12 Authors</div>
+            </div>
+          </div>
+          <div class="meta-info">
+            <span id="heroDate"><i class="fa-regular fa-calendar"></i> Aug 3, 2026</span>
+            <span id="heroReadTime"><i class="fa-regular fa-clock"></i> 6 min read</span>
+          </div>
+        </div>
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+          <button class="btn btn-primary" id="heroReadBtn">
+            <i class="fa-solid fa-book-open"></i> Read Full Story
+          </button>
+          <button class="btn btn-secondary" id="heroBookmarkBtn">
+            <i class="fa-regular fa-bookmark"></i> Save
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters & Navigation Bar -->
+    <section class="content-filter-bar">
+      <!-- Format Tabs -->
+      <div class="format-tabs" id="formatTabs">
+        <button class="tab-btn active" data-tab="all">
+          <i class="fa-solid fa-border-all"></i> All Stories
+        </button>
+        <button class="tab-btn" data-tab="article">
+          <i class="fa-solid fa-newspaper"></i> Articles
+        </button>
+        <button class="tab-btn" data-tab="diary">
+          <i class="fa-solid fa-book-journal-whills"></i> Personal Diaries
+        </button>
+        <button class="tab-btn" data-tab="tips">
+          <i class="fa-solid fa-lightbulb"></i> Quick Tips
+        </button>
+        <button class="tab-btn" data-tab="indepth">
+          <i class="fa-solid fa-microscope"></i> In-Depth
+        </button>
+        <button class="tab-btn" data-tab="bookmarks">
+          <i class="fa-solid fa-bookmark"></i> Saved Articles (<span id="savedCountBadge">0</span>)
+        </button>
+      </div>
+
+      <!-- Category Pills & Sort -->
+      <div class="category-pills-row">
+        <div class="pill-group" id="categoryPills">
+          <button class="category-pill active" data-category="all">All Topics</button>
+          <button class="category-pill" data-category="Technology">Technology</button>
+          <button class="category-pill" data-category="Design">Design & Motion</button>
+          <button class="category-pill" data-category="Personal">Personal Reflections</button>
+          <button class="category-pill" data-category="Science">Science & Future</button>
+          <button class="category-pill" data-category="Career">Career & Life</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <label for="sortSelect" style="font-size: 0.85rem; color: var(--text-muted);">Sort by:</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="latest">Latest Published</option>
+            <option value="popular">Most Clapped</option>
+            <option value="readingTime">Reading Time</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Card Grid -->
+    <section class="articles-grid" id="articlesGrid">
+      <!-- Article cards dynamically rendered by app.js -->
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. FULL ARTICLE READER MODAL -->
+  <div class="modal-backdrop" id="readerModalBackdrop">
+    <div class="reader-modal" id="readerModal">
+      <!-- Reader Header Bar -->
+      <div class="reader-sticky-bar">
+        <div class="reading-progress-track" id="readingProgressTrack"></div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);" id="readerFormatBadge">Article</span>
+        </div>
+
+        <div class="reader-controls">
+          <!-- Text Size Adjuster -->
+          <button class="font-size-btn" data-size="sm">A-</button>
+          <button class="font-size-btn active" data-size="md">A</button>
+          <button class="font-size-btn" data-size="lg">A+</button>
+          
+          <button class="btn btn-secondary" id="readerClapBtn" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;">
+            <i class="fa-solid fa-hands-clapping"></i> <span id="readerClapsCount">0</span>
+          </button>
+
+          <button class="btn btn-secondary" id="readerBookmarkBtn" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;">
+            <i class="fa-regular fa-bookmark" id="readerBookmarkIcon"></i>
+          </button>
+
+          <button class="btn btn-icon" id="closeReaderBtn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reader Scrollable Content -->
+      <div class="reader-content-scroll" id="readerContentScroll">
+        <div class="article-full-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;" id="readerTagsContainer"></div>
+          <h1 class="reader-title" id="readerTitle">Article Title</h1>
+          <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6;" id="readerSubtitle">Article Subtitle</p>
+
+          <!-- Author Info Card -->
+          <div class="author-chip" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-glass); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <img src="" alt="Author" class="author-avatar" id="readerAuthorAvatar">
+            <div style="flex: 1;">
+              <div class="author-name" id="readerAuthorName">Author Name</div>
+              <div class="author-role" id="readerAuthorBio">Bio details</div>
+            </div>
+            <div style="text-align: right; color: var(--text-muted); font-size: 0.85rem;">
+              <div id="readerDate"><i class="fa-regular fa-calendar"></i> Aug 3, 2026</div>
+              <div id="readerTime"><i class="fa-regular fa-clock"></i> 5 min read</div>
+            </div>
+          </div>
+        </div>
+
+        <img src="" alt="Banner" class="reader-banner-image" id="readerBannerImage">
+
+        <!-- Audio Player TTS Simulator -->
+        <div class="audio-player-card" id="audioPlayerCard">
+          <button class="audio-play-btn" id="audioPlayBtn">
+            <i class="fa-solid fa-play" id="audioPlayIcon"></i>
+          </button>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.3rem;">
+              <span><i class="fa-solid fa-headphones"></i> Listen to Audio Article (AI Voice)</span>
+              <span id="audioTimer">0:00 / 3:45</span>
+            </div>
+            <div class="audio-waveform" id="audioWaveform">
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Body Text Container -->
+        <article class="article-body-text" id="readerBodyText">
+          <!-- Article HTML rendered dynamically -->
+        </article>
+
+        <!-- Comments & Discussion Section -->
+        <section class="comments-section">
+          <h3 style="font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 1rem;" id="commentsTitle">
+            Community Comments (3)
+          </h3>
+
+          <div class="comment-input-wrap">
+            <textarea id="newCommentInput" class="comment-textarea" placeholder="Share your thoughts or leave a response..."></textarea>
+            <div style="display: flex; justify-content: flex-end;">
+              <button class="btn btn-primary" id="submitCommentBtn">
+                <i class="fa-solid fa-paper-plane"></i> Post Comment
+              </button>
+            </div>
+          </div>
+
+          <div id="commentsContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ARTICLE WRITER / CREATOR STUDIO MODAL -->
+  <div class="modal-backdrop" id="writerModalBackdrop">
+    <div class="writer-modal">
+      <div class="reader-sticky-bar">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <i class="fa-solid fa-pen-to-square" style="color: var(--accent-primary);"></i>
+          <span style="font-weight: 700; font-size: 1.1rem;">Writer Studio & Editor</span>
+        </div>
+        <button class="btn btn-icon" id="closeWriterBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="writer-grid">
+        <!-- Editor Left Pane -->
+        <form class="editor-pane" id="writerForm">
+          <div class="form-group">
+            <label class="form-label">Article / Diary Title *</label>
+            <input type="text" id="writeTitle" class="form-input" placeholder="e.g. Lessons Learned After 5 Years of Remote Engineering" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subtitle / Excerpt *</label>
+            <input type="text" id="writeExcerpt" class="form-input" placeholder="A brief summary of what your story covers..." required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="writeCategory" class="form-select">
+                <option value="Technology">Technology</option>
+                <option value="Design">Design & Motion</option>
+                <option value="Personal">Personal Reflection / Diary</option>
+                <option value="Science">Science & Future</option>
+                <option value="Career">Career & Life</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Format Type</label>
+              <select id="writeFormat" class="form-select">
+                <option value="article">Article</option>
+                <option value="diary">Personal Diary</option>
+                <option value="tips">Quick Tip</option>
+                <option value="indepth">In-Depth Guide</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Publication Type</label>
+              <select id="writeAuthorType" class="form-select">
+                <option value="individual">Individual Author</option>
+                <option value="group">Group / Team Publication</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Author Name</label>
+              <input type="text" id="writeAuthorName" class="form-input" value="Manaviti Tiwari" placeholder="Your name or team name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Topic Tags (comma separated)</label>
+            <input type="text" id="writeTags" class="form-input" placeholder="e.g. AI, WebDev, Productivity, Personal">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cover Image</label>
+            <select id="writeCoverPreset" class="form-select">
+              <option value="assets/tech_ai.jpg">Tech & AI Futuristic Cover</option>
+              <option value="assets/diary_cozy.jpg">Cozy Personal Diary Cover</option>
+              <option value="assets/tips_design.jpg">Design & UI Tips Cover</option>
+              <option value="assets/science_space.jpg">Space & Science Nebula Cover</option>
+              <option value="assets/group_pub.jpg">Group Publication Team Cover</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Markdown / Story Content *</label>
+            <textarea id="writeContent" class="form-textarea" style="min-height: 220px; font-family: var(--font-mono); font-size: 0.9rem;" placeholder="Write your article body here in Markdown format (use ## for headers, > for quotes, etc.)..." required></textarea>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="submit" class="btn btn-primary" style="flex: 1;">
+              <i class="fa-solid fa-paper-plane"></i> Publish Story
+            </button>
+          </div>
+        </form>
+
+        <!-- Live Preview Right Pane -->
+        <div class="preview-pane">
+          <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent-primary); margin-bottom: 1rem;">
+            <i class="fa-solid fa-eye"></i> Live Reader Preview
+          </div>
+          <h2 style="font-family: var(--font-serif); font-size: 1.8rem;" id="previewTitle">Story Title Preview</h2>
+          <p style="color: var(--text-secondary); margin: 0.5rem 0 1.5rem 0;" id="previewExcerpt">Excerpt preview will appear here...</p>
+          <div class="article-body-text" id="previewBody">
+            <p>Start typing your content on the left to see live preview...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ANALYTICS & READING STATS MODAL -->
+  <div class="modal-backdrop" id="analyticsModalBackdrop">
+    <div class="reader-modal" style="max-width: 650px;">
+      <div class="reader-sticky-bar">
+        <span style="font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-chart-pie"></i> Your Reading & Writing Stats</span>
+        <button class="btn btn-icon" id="closeAnalyticsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div style="padding: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 2rem;">
+          <div style="background: var(--bg-glass); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2.2rem; font-weight: 700; color: var(--accent-primary);" id="statsReadCount">4</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Articles Read</div>
+          </div>
+          <div style="background: var(--bg-glass); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2.2rem; font-weight: 700; color: #ec4899;" id="statsClapsCount">28</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Total Claps Given</div>
+          </div>
+          <div style="background: var(--bg-glass); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2.2rem; font-weight: 700; color: #34d399;" id="statsStreak">5 Days</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Reading Streak</div>
+          </div>
+          <div style="background: var(--bg-glass); border: 1px solid var(--border-color); padding: 1.25rem; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 2.2rem; font-weight: 700; color: #fbbf24;" id="statsSavedCount">2</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Saved in Reading List</div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 1rem; margin-bottom: 1rem;">Favorite Reading Topics</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+              <span>Technology & AI</span>
+              <span>45%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-glass); border-radius: 3px; overflow: hidden;">
+              <div style="width: 45%; height: 100%; background: var(--accent-primary);"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+              <span>Personal Reflection & Diaries</span>
+              <span>30%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-glass); border-radius: 3px; overflow: hidden;">
+              <div style="width: 30%; height: 100%; background: #ec4899;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+              <span>UI/UX & Design Tips</span>
+              <span>25%</span>
+            </div>
+            <div style="height: 6px; background: var(--bg-glass); border-radius: 3px; overflow: hidden;">
+              <div style="width: 25%; height: 100%; background: #34d399;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. NEWSLETTER SUBSCRIBE MODAL -->
+  <div class="modal-backdrop" id="newsletterModalBackdrop">
+    <div class="reader-modal" style="max-width: 500px;">
+      <div class="reader-sticky-bar">
+        <span style="font-weight: 700; font-size: 1.1rem;"><i class="fa-regular fa-paper-plane"></i> Weekly Chronicle Dispatch</span>
+        <button class="btn btn-icon" id="closeNewsletterBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div style="padding: 2.5rem; text-align: center;">
+        <i class="fa-solid fa-envelope-open-text" style="font-size: 3rem; color: var(--accent-primary); margin-bottom: 1rem;"></i>
+        <h3 style="font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 0.5rem;">Join 24,000+ Readers</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">Get curated tech insights, personal diaries, and design tips delivered right to your inbox every Sunday morning.</p>
+        
+        <form id="newsletterForm" style="display: flex; flex-direction: column; gap: 1rem;">
+          <input type="email" id="newsletterEmail" class="form-input" placeholder="Enter your email address..." required>
+          <button type="submit" class="btn btn-primary" style="padding: 0.75rem;">
+            Subscribe Now — Free Forever
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic JS -->
+  <script src="app.js"></script>
+</body>
+</html>
