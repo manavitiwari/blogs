@@ -100,7 +100,7 @@ I wouldn't trade these peaceful late nights for anything.`
 
 CSS in 2026 has evolved faster than ever. Here are 5 essential rules to write clean, maintainable stylesheets for modern web projects:
 
-### Tip 1: Use `:has()` for Parent Selection without JavaScript
+### Tip 1: Use \`:has()\` for Parent Selection without JavaScript
 
 You no longer need JS to style a container based on its child states:
 
